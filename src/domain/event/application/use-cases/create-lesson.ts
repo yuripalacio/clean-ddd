@@ -3,6 +3,7 @@ import { LessonsRepository } from '../repositories/lessons-repository'
 import { Lesson } from '../../enterprise/entities/lesson'
 import { Either, right } from '@/core/either'
 import { LessonAttachment } from '../../enterprise/entities/lesson-attachment'
+import { LessonAttachmentList } from '../../enterprise/entities/lesson-attachment-list'
 
 interface CreateLessonUseCaseRequest {
   teacherId: string
@@ -33,14 +34,14 @@ export class CreateLessonUseCase {
       title,
     })
 
-    const lessonAttachments = attachmentsIds.map((attachmentsId) => {
+    const lessonAttachments = attachmentsIds.map((attachmentId) => {
       return LessonAttachment.create({
-        attachmentId: new UniqueEntityId(attachmentsId),
+        attachmentId: new UniqueEntityId(attachmentId),
         lessonId: lesson.id,
       })
     })
 
-    lesson.attachments = lessonAttachments
+    lesson.attachments = new LessonAttachmentList(lessonAttachments)
 
     await this.lessonsRepository.create(lesson)
 

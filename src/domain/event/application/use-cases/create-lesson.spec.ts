@@ -21,10 +21,14 @@ describe('Create Lesson', () => {
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryLessonsRepository.items[0]).toEqual(result.value?.lesson)
-    expect(inMemoryLessonsRepository.items[0].attachments).toHaveLength(2)
-    expect(inMemoryLessonsRepository.items[0].attachments).toEqual([
-      expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
-    ])
+    expect(
+      inMemoryLessonsRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
+    expect(inMemoryLessonsRepository.items[0].attachments.currentItems).toEqual(
+      [
+        expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
+        expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
+      ],
+    )
   })
 })
