@@ -4,7 +4,7 @@ import { Enroll } from '../entities/enroll'
 
 export class EnrollCreatedEvent implements DomainEvent {
   public ocurredAt: Date
-  private enroll: Enroll
+  public enroll: Enroll
 
   constructor(enroll: Enroll) {
     this.enroll = enroll
