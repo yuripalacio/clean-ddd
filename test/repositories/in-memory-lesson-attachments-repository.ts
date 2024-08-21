@@ -13,4 +13,12 @@ export class InMemoryLessonAttachmentsRepository
 
     return lessonAttachments
   }
+
+  async deleteManyByLessonId(lessonId: string): Promise<void> {
+    const lessonAttachments = this.items.filter(
+      (item) => item.lessonId.toString() !== lessonId,
+    )
+
+    this.items = lessonAttachments
+  }
 }

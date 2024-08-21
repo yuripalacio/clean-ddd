@@ -1,13 +1,19 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { CreateLessonUseCase } from './create-lesson'
 import { InMemoryLessonsRepository } from 'test/repositories/in-memory-lessons-repository'
+import { InMemoryLessonAttachmentsRepository } from 'test/repositories/in-memory-lesson-attachments-repository'
 
 let inMemoryLessonsRepository: InMemoryLessonsRepository
+let inMemoryLessonAttachmentsRepository: InMemoryLessonAttachmentsRepository
 let sut: CreateLessonUseCase
 
 describe('Create Lesson', () => {
   beforeEach(() => {
-    inMemoryLessonsRepository = new InMemoryLessonsRepository()
+    inMemoryLessonAttachmentsRepository =
+      new InMemoryLessonAttachmentsRepository()
+    inMemoryLessonsRepository = new InMemoryLessonsRepository(
+      inMemoryLessonAttachmentsRepository,
+    )
     sut = new CreateLessonUseCase(inMemoryLessonsRepository)
   })
 

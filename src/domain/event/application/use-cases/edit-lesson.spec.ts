@@ -11,9 +11,11 @@ let sut: EditLessonUseCase
 
 describe('Edit lesson', () => {
   beforeEach(() => {
-    inMemoryLessonsRepository = new InMemoryLessonsRepository()
     inMemoryLessonAttachmentsRepository =
       new InMemoryLessonAttachmentsRepository()
+    inMemoryLessonsRepository = new InMemoryLessonsRepository(
+      inMemoryLessonAttachmentsRepository,
+    )
     sut = new EditLessonUseCase(
       inMemoryLessonsRepository,
       inMemoryLessonAttachmentsRepository,
