@@ -1,6 +1,7 @@
-import { Entity } from '@/core/entities/entity'
+import { AggregateRoot } from '@/core/entities/aggregate-root'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { EnrollCreatedEvent } from '../events/enroll-created-event'
 
 export interface EnrollProps {
   lessonId: UniqueEntityId
@@ -9,7 +10,7 @@ export interface EnrollProps {
   updatedAt?: Date
 }
 
-export class Enroll extends Entity<EnrollProps> {
+export class Enroll extends AggregateRoot<EnrollProps> {
   get lessonId() {
     return this.props.lessonId
   }
@@ -37,6 +38,12 @@ export class Enroll extends Entity<EnrollProps> {
       },
       id,
     )
+
+    const isNewEnroll = !id
+
+    if (isNewEnroll) {
+      enroll.addDomainEvent(new EnrollCreatedEvent(enroll))
+    }
 
     return enroll
   }
