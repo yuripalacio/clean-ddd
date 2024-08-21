@@ -2,7 +2,7 @@ import { InMemoryEnrollsRepository } from 'test/repositories/in-memory-enrolls-r
 import { makeEnroll } from 'test/factories/make-enroll'
 import { DeleteEnrollUseCase } from './delete-enroll'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from './errors/not-allowed-error'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 
 let inMemoryEnrollsRepository: InMemoryEnrollsRepository
 let sut: DeleteEnrollUseCase

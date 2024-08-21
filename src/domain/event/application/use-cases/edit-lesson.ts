@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { Lesson } from '../../enterprise/entities/lesson'
 import { LessonsRepository } from '../repositories/lessons-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
 import { LessonAttachmentsRepository } from '../repositories/lesson-attachments-repository'
 import { LessonAttachmentList } from '../../enterprise/entities/lesson-attachment-list'
 import { LessonAttachment } from '../../enterprise/entities/lesson-attachment'
