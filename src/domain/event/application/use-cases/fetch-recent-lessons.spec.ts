@@ -1,13 +1,19 @@
 import { InMemoryLessonsRepository } from 'test/repositories/in-memory-lessons-repository'
 import { FetchRecentLessonsUseCase } from './fetch-recent-lessons'
 import { makeLesson } from 'test/factories/make-lesson'
+import { InMemoryLessonAttachmentsRepository } from 'test/repositories/in-memory-lesson-attachments-repository'
 
+let inMemoryLessonAttachmentsRepository: InMemoryLessonAttachmentsRepository
 let inMemoryLessonsRepository: InMemoryLessonsRepository
 let sut: FetchRecentLessonsUseCase
 
 describe('Fetch Recent Lessons', () => {
   beforeEach(() => {
-    inMemoryLessonsRepository = new InMemoryLessonsRepository()
+    inMemoryLessonAttachmentsRepository =
+      new InMemoryLessonAttachmentsRepository()
+    inMemoryLessonsRepository = new InMemoryLessonsRepository(
+      inMemoryLessonAttachmentsRepository,
+    )
     sut = new FetchRecentLessonsUseCase(inMemoryLessonsRepository)
   })
 
