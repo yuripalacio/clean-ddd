@@ -60,8 +60,12 @@ This allows the application to perform only the necessary database operations, o
 
 In summary, aggregates ensure entities that depend on each other are managed as a unit, while the watched list helps efficiently handle changes in related data without unnecessary operations.
 
-## Pub/Sub (Publish/Subscription)
-In this project, Pub/Sub is used to decouple different parts of a system. For instance, when a new enrollment is created, instead of directly calling the notification service (which would cause tight coupling), the enrollment creation event is published.
+## Domain Events with Pub/Sub
+Domain events are a pattern used in software development, especially within DDD, to manage communication between different subdomains or bounded contexts without tightly coupling them. In a monolithic architecture, while everything exists within the same codebase, it is still essential to maintain independence between different subdomains. Domain events enable this by decoupling the execution logic and ensuring that when something significant happens in one subdomain (like a purchase being made), other subdomains (like invoicing) can react to it without direct dependencies.
+
+This pattern helps keep the system modular and allows different parts of the application to evolve independently. In the example discussed, a notification subdomain is being introduced to handle alerts related to various activities. This subdomain will listen to domain events, such as a new reply being posted or a response being marked as the best, and trigger notifications accordingly.
+
+In this project, Pub/Sub (Publish/Subscription) is used to decouple different parts of a system. For instance, when a new enrollment is created, instead of directly calling the notification service (which would cause tight coupling), the enrollment creation event is published.
 This event is added to a data structure with a flag indicating whether it's ready for processing.
 Subscribers, like the notification service, listen for these events and act only when they are marked as ready.
 This ensures that the notification is sent only after the enroll creation process is fully complete, avoiding premature notifications in case of errors.
